@@ -1,0 +1,10 @@
+{
+  "name": "adventofcode2021",
+  "version": "1.0.0",
+  "description": "Advent Of Code 2021",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ben Merken",
+  "license": "ISC"
+}
