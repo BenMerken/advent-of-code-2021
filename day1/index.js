@@ -1,3 +1,5 @@
+'use strict'
+
 const fs = require('fs')
 
 const puzzle = fs.readFileSync(`${__dirname}/puzzle.txt`, { encoding: 'utf-8' })
