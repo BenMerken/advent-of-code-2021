@@ -43,9 +43,12 @@ const columnWin = (board) => {
   return false
 }
 
-const solution1 = () => {
+;(() => {
+  let firstWonBoardFound = false
+  const wonBoardsIndexes = []
+
   numbers.forEach((number) => {
-    boards = boards.map((board) =>
+    boards = boards.map((board, y) =>
       board.map((row, i) => {
         const rowNumbers = row.split(' ').filter((num) => num !== '')
         const index = rowNumbers.indexOf(number)
@@ -56,25 +59,38 @@ const solution1 = () => {
         }
 
         if (rowWin(board) || columnWin(board)) {
-          const sum = board
-            .join(' ')
-            .split(' ')
-            .filter((num) => num !== '*')
-            .reduce((a, b) => a + parseInt(b), 0)
+          if (!wonBoardsIndexes.includes(y)) {
+            wonBoardsIndexes.push(y)
 
-          console.log(`Solution 1: ${sum * number}`)
-          solution2()
+            if (wonBoardsIndexes.length === 100) {
+              const sum = boards[wonBoardsIndexes.pop()]
+                .join(' ')
+                .split(' ')
+                .filter((num) => num !== '*')
+                .reduce((a, b) => a + parseInt(b), 0)
+              console.log(`Solution 2: ${sum * number}`)
+              exit(0)
+            }
+          }
+
+          if (!firstWonBoardFound) {
+            const sum = board
+              .join(' ')
+              .split(' ')
+              .filter((num) => num !== '*')
+              .reduce((a, b) => a + parseInt(b), 0)
+
+            console.log(`Solution 1: ${sum * number}`)
+            firstWonBoardFound = true
+          }
+        }
+
+        if (wonBoardsIndexes.length === 100) {
+          console.log(wonBoardsIndexes)
         }
 
         return rowNumbers.join(' ')
       })
     )
   })
-}
-
-const solution2 = () => {
-  console.log(`Solution 2: `)
-  exit(0)
-}
-
-solution1()
+})()
